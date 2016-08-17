@@ -77,7 +77,7 @@ class Fluent::GraphiteOutput < Fluent::Output
       key = case @tag_for
             when 'ignore' then k
             when 'prefix' then tag + '.' + k
-            when 'suffix' then k + '.' + tag
+            when 'suffix' then k + '.' + " " + tag
             end
 
       key = key.gsub(/(\s|\/)+/, '_') # cope with in the case of containing symbols or spaces in the key of the record like in_dstat.
