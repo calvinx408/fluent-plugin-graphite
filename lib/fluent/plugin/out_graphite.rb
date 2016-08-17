@@ -7,6 +7,7 @@ class Fluent::GraphiteOutput < Fluent::Output
   include Fluent::Mixin::RewriteTagName
 
   config_param :host, :string
+  config_param :wtag, :string
   config_param :port, :integer, default: 2003
   config_param :tag_for, :string, default: 'prefix'
   config_param :name_keys, :string, default: nil
@@ -81,7 +82,7 @@ class Fluent::GraphiteOutput < Fluent::Output
             end
 
       key = key.gsub(/(\s|\/)+/, '_') # cope with in the case of containing symbols or spaces in the key of the record like in_dstat.
-      metrics[key] = v.to_f
+      metrics[key] = v.to_f + " #{wtag}"
     end
     metrics
   end
